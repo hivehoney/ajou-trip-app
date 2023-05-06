@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/ajou-trip-app/static/css/main.073c9b0a.css",
-    "main.js": "/ajou-trip-app/static/js/main.65fce59e.js",
+    "main.js": "/ajou-trip-app/static/js/main.5d03c5a3.js",
     "static/js/787.268934c8.chunk.js": "/ajou-trip-app/static/js/787.268934c8.chunk.js",
     "static/media/logo.svg": "/ajou-trip-app/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/ajou-trip-app/index.html",
     "main.073c9b0a.css.map": "/ajou-trip-app/static/css/main.073c9b0a.css.map",
-    "main.65fce59e.js.map": "/ajou-trip-app/static/js/main.65fce59e.js.map",
+    "main.5d03c5a3.js.map": "/ajou-trip-app/static/js/main.5d03c5a3.js.map",
     "787.268934c8.chunk.js.map": "/ajou-trip-app/static/js/787.268934c8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.65fce59e.js"
+    "static/js/main.5d03c5a3.js"
   ]
 }
