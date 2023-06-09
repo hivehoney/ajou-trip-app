@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+
+/*color*/
+/*primary*/
+$color-primary              :#18C9D4; //#28B4B0                            // Primary
+$color-primary-dark         : darken($color-primary, 4%);              // #63939C : Background Gradient 
+$color-primary-medium       : lighten($color-primary, 4%);            // #96B4BA : Background Gradient
+$color-primary-ash          : #96B4BA;            // #EBF1F3 : Background GNB
+$color-primary-light        : #EBF1F3;            // #EBF1F3 : Background GNB
+$color-primary-extra-light  :#f5f6f6; // #F9FAFA    가시성 향상 이슈로 수정 (2021-03-10)// #63939C : Background Input 
+$color-primary-clear-light  : #F5F7F9;     // #F5F7F9 : User-front BG 
+/*grayscale*/
+$color-grayscale-bk         : #000;
+$color-grayscale-dark       : #333;
+$color-grayscale-medium     : #666;
+$color-grayscale-light      : #999;
+$color-grayscale-extra-light: #d8d8d8;
+$color-grayscale-fog        : #EDEDED;
+$color-grayscale-max-light  : #f3f3f3;
+$color-grayscale-w          : #fff;
+/*state*/
+$color-enable             : #4cd661;
+$color-enable-light       : mix(#fff, $color-enable, 90%);
+$color-disable            : #929292;
+$color-disable-light      : mix(#fff, $color-disable, 90%);
+$color-caution            : #fe6666;
+$color-caution-light      : mix(#fff, $color-caution, 90%); 
+$color-caution2           : #f4ff5e;
+$color-caution2-light     : mix(#fff, $color-caution, 90%); 
+$color-link               :#1FBCC5;
+$color-emphasis           : #3449FA;
+/*channel*/
+$color-channel-01         :#B9D5F2;
+$color-channel-02         :#59D7D2;
+$color-channel-03         :#4EA7FB;
+$color-channel-04         :#1A213B;
+$color-channel-05         :#00BD8C;
+       
+$border-radius-micro      : 2px;
+$border-radius-min        : 4px;
+$border-radius-normal     : 8px;
+$border-radius-max        : 16px;
+$border-radius-macro      : 24px;
+
+$color-secondary          :#273960;
+
+// $color-secondary-light-01  :color: rgba($primary-color, .5);          
+// $color-secondary-light-02  :opacity($color-secondary,0.2);          
+// $color-secondary-light-03  :opacity($color-secondary,0.3);          
+// $color-secondary-light-04  :opacity($color-secondary,0.4);          
+// $color-secondary-light-05  :opacity($color-secondary,0.5);          
+// $color-secondary-light-06  :opacity($color-secondary,0.6);          
+// $color-secondary-light-07  :opacity($color-secondary,0.7);   
+
+$color-gra-primary          : linear-gradient(167deg, #7cfef9 0%, #59d7d2 13%, #5064f5 77%, #1a213b 100%);
+$color-gra-primary_s        : linear-gradient(167deg, #7cfef9 0%, #59d7d2 13%, #5064f5 100%);
+/* reset */
+* [unresolved] {display: none}
+* {box-sizing: border-box;}
+html,body {height: 100%;}
+article, aside, figure, footer, header, hgroup, nav, section {display:block}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,p,button,input,figure {margin:0;padding:0; box-sizing: border-box; }
+body, input, textarea, select {
+  font : {
+    size:14px; 
+    family: 'Noto Sans KR', sans-serif,"Apple SD Gothic Neo","Dotum","돋움","Helvetica","sans-serif"; 
+    weight: 300; 
+  }
+//   color: $color-grayscale-dark; 
+  letter-spacing: -0.7px;
+}
+body, input, select {*word-break:break-all; /*-ms-word-wrap:break-all;*/ white-space:normal; word-break:break-all}
+img {vertical-align:top}
+a {
+    cursor:pointer;
+    text-decoration:none; 
+    vertical-align:baseline;
+    color: $color-grayscale-dark;
+    &:hover {
+      text-decoration:none
+  }
+}
+span {vertical-align:baseline}
+a img, img {border:0}
+ul, ol {list-style:none}
+table {border-collapse:collapse; width:100%}
+label {vertical-align:baseline}
+fieldset {border:none}
+input[type=number]::-webkit-inner-spin-button {opacity: 1;}
+::-webkit-input-placeholder { /* Edge */ color: $color-grayscale-extra-light;}
+:-ms-input-placeholder { color: $color-grayscale-extra-light;}
+::placeholder {color: $color-grayscale-extra-light;}
+
+
+/*radio*/
+[type="radio"]:checked, [type="radio"]:not(:checked) {position: absolute; left: -9999px;}
+[type="radio"]:checked + label, [type="radio"]:not(:checked) + label{position: relative; padding-left: 28px; cursor: pointer; line-height: 20px; /*display: inline-block;*/}
+[type="radio"]:checked + label:before, [type="radio"]:not(:checked) + label:before {content: ''; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border: 1px solid $color-grayscale-extra-light; border-radius: 100%; background: #fff;}
+[type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {content: ''; width: 12px; height: 12px; background: $color-primary; position: absolute; top: 5px; left: 5px; border-radius: 100%; -webkit-transition: all 0.2s ease; transition: all 0.2s ease;}
+[type="radio"]:not(:checked) + label:after {opacity: 0; -webkit-transform: scale(0); transform: scale(0);}
+[type="radio"]:checked + label:after {opacity: 1; -webkit-transform: scale(1); transform: scale(1);}
+/* [type="radio"]:checked + label {color: #e51d77} */
+input:disabled,
+input:disabled+label {opacity: 0.5; cursor: not-allowed!important;}
+
+/* noto-sans-kr-300 - latin_korean */
+@font-face {
+  font: {
+    family: 'Noto Sans KR';
+	  style: normal;
+    weight: 300;
+  }
+	src: url('../fonts/noto-sans-kr-v8-latin_korean-300.eot'); /* IE9 Compat Modes */
+	src: local('Noto Sans KR Light'), local('NotoSansKR-Light'),
+	url('../fonts/noto-sans-kr-v8-latin_korean-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/noto-sans-kr-v8-latin_korean-300.woff2') format('woff2'), /* Super Modern Browsers */
+	url('../fonts/noto-sans-kr-v8-latin_korean-300.woff') format('woff'), /* Modern Browsers */
+	url('../fonts/noto-sans-kr-v8-latin_korean-300.svg#NotoSansKR') format('svg'); /* Legacy iOS */
+}
+/* noto-sans-kr-regular - latin_korean */
+@font-face {
+	font: {
+    family: 'Noto Sans KR';
+	  style: normal;
+    weight: 400;
+  }
+	src: url('../fonts/noto-sans-kr-v8-latin_korean-regular.eot'); /* IE9 Compat Modes */
+	src: local('Noto Sans KR Regular'), local('NotoSansKR-Regular'),
+	url('../fonts/noto-sans-kr-v8-latin_korean-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/noto-sans-kr-v8-latin_korean-regular.woff2') format('woff2'), /* Super Modern Browsers */
+	url('../fonts/noto-sans-kr-v8-latin_korean-regular.woff') format('woff'), /* Modern Browsers */
+	url('../fonts/noto-sans-kr-v8-latin_korean-regular.svg#NotoSansKR') format('svg'); /* Legacy iOS */
+}
+/* noto-sans-kr-500 - latin_korean */
+@font-face {
+	font: {
+    family: 'Noto Sans KR';
+	  style: normal;
+    weight: 500;
+  }
+	src: url('../fonts/noto-sans-kr-v8-latin_korean-500.eot'); /* IE9 Compat Modes */
+	src: local('Noto Sans KR Medium'), local('NotoSansKR-Medium'),
+	url('../fonts/noto-sans-kr-v8-latin_korean-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/noto-sans-kr-v8-latin_korean-500.woff2') format('woff2'), /* Super Modern Browsers */
+	url('../fonts/noto-sans-kr-v8-latin_korean-500.woff') format('woff'), /* Modern Browsers */
+	url('../fonts/noto-sans-kr-v8-latin_korean-500.svg#NotoSansKR') format('svg'); /* Legacy iOS */
+}
+
+
+$asset_path : "../images";
+/*paragraphy*/
+/*font size*/
+
+/*icon : image sprite_general*/
+.ic_set {display: inline-block; background: url(../images/ic_set.svg) no-repeat; vertical-align: text-bottom;}
+/*1st line*/
+.ic_set.ic_logout     {width:24px; height:24px; background-position: 0 0; filter: invert(100%);}
+.ic_set.ic_home       {width:24px; height:24px; background-position: -50px 0;}
+.ic_set.ic_gnb        {width:24px; height:24px; background-position: -100px 0;}
+.ic_set.ic_search     {width:24px; height:24px; background-position: -150px 0;}
+.ic_set.ic_filter     {width:24px; height:24px; background-position: -200px 0;}
+.ic_set.ic_close      {width:24px; height:24px; background-position: -250px 0;}
+.ic_set.ic_create     {width:24px; height:24px; background-position: -300px 0;}
+.ic_set.ic_addlist    {width:24px; height:24px; background-position: -350px 0;}
+.ic_set.ic_del        {width:24px; height:24px; background-position: -400px 0;}
+.ic_set.ic_minus      {width:24px; height:24px; background-position: -450px 0;}
+.ic_set.ic_plus       {width:24px; height:24px; background-position: -500px 0;}
+.ic_set.ic_depth      {width:24px; height:24px; background-position: -550px 0;}
+/*2nd line*/
+.ic_set.ic_arrow_r,
+.ic_set.ic_next       {width:24px; height:24px; background-position: 0 -50px;}
+.ic_set.ic_accordion,
+.ic_set.ic_arrow_b    {width:24px; height:24px; background-position: -50px -50px;}
+.ic_set.ic_arrow_l,
+.ic_set.ic_prev       {width:24px; height:24px; background-position: -100px -50px;}
+.ic_set.ic_arrow_t    {width:24px; height:24px; background-position: -150px -50px;}
+.ic_set.ic_sort_up    {width:24px; height:24px; background-position: -200px -50px;}
+.ic_set.ic_sort_down  {width:24px; height:24px; background-position: -250px -50px;}
+.ic_set.ic_sort       {width:24px; height:24px; background-position: -300px -50px;}
+.ic_set.ic_arrow_r_b  {width:24px; height:24px; background-position: -350px -50px;}
+.ic_set.ic_arrow_b_b  {width:24px; height:24px; background-position: -400px -50px;}
+.ic_set.ic_arrow_l_b  {width:24px; height:24px; background-position: -450px -50px;}
+.ic_set.ic_arrow_t_b  {width:24px; height:24px; background-position: -500px -50px;}
+/*3rd line*/
+.ic_set.ic_cal          {width:24px; height:24px; background-position: 0px -100px;}
+.ic_set.ic_search_addr  {width:24px; height:24px; background-position: -50px -100px;}
+.ic_set.ic_eye          {width:24px; height:24px; background-position: -150px -100px;}
+.ic_set.ic_eye_off      {width:24px; height:24px; background-position: -200px -100px;}
+.ic_set.ic_info         {width:24px; height:24px; background-position: -250px -100px;}
+.ic_set.ic_file         {width:24px; height:24px; background-position: -300px -100px;}
+.ic_set.ic_mail         {width:24px; height:24px; background-position: -350px -100px;}
+.ic_set.ic_sms          {width:24px; height:24px; background-position: -400px -100px;}
+.ic_set.ic_sync         {width:24px; height:24px; background-position: -450px -100px;}
+.ic_set.ic_download     {width:24px; height:24px; background-position: -500px -100px;}
+/*4th line*/
+.ic_set.ic_img_error  {width:182px; height:120px; background-position: 0 -150px;}
+.ic_set.ic_create_b   {width:32px; height:32px; background-position: -250px -150px;}
+.ic_set.ic_calc_minus {width:34px; height:34px; background-position: -300px -150px;}
+.ic_set.ic_calc_equal {width:34px; height:34px; background-position: -350px -150px;}
+.ic_set.ic_blank 	    {width:24px; height:24px; background-position: -400px -150px;}
+.ic_set.ic_home_b 	  {width:24px; height:24px; background-position: -450px -150px;}
+
+/*5th line*/
+.ic_set.ic_arrow_r_w  {width:24px; height:24px; background-position: 0 -300px;}
+.ic_set.ic_arrow_b_w  {width:24px; height:24px; background-position: -50px -300px;}
+.ic_set.ic_arrow_l_w  {width:24px; height:24px; background-position: -100px -300px;}
+.ic_set.ic_arrow_t_w  {width:24px; height:24px; background-position: -150px -300px;}
+.ic_set.ic_info_w     {width:14px; height:14px; background-position: -250px -300px;}
+.ic_set.ic_ellipsis   {width:16px; height:16px; background-position: -300px -300px;}
+
+/*ic_svc*/
+/*6th line*/
+.ic_svc.ic_accounting   {width:40px; height:40px; background-position: 0 -350px;}
+.ic_svc.ic_linkplus     {width:40px; height:40px; background-position: -50px -350px;}
+.ic_svc.ic_ess          {width:40px; height:40px; background-position: -100px -350px;}
+/*7th line*/
+.ic_svc.ic_accounting_s   {width:24px; height:24px; background-position: 0 -400px;}
+.ic_svc.ic_linkplus_s     {width:24px; height:24px; background-position: -50px -400px;}
+.ic_svc.ic_ess_s          {width:24px; height:24px; background-position: -100px -400px;}
+

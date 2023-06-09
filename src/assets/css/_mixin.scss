@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+/*box*/
+@mixin box($width, $height: $width) {
+    width: $width;
+    height: $height;
+    border-radius: $border-radius-normal;
+    background-color: $color-grayscale-w;
+  }
+  
+  @mixin layer {
+    z-index: 10;
+    position: absolute; 
+    padding: 40px; 
+    border: 1px solid $color-grayscale-extra-light; border-radius: 8px;
+    background-color:$color-grayscale-w; 
+    box-shadow: 0 10px 20px $color-grayscale-light; 
+  }
+  
+  @mixin truncate($truncation-boundary) {
+    display: inline-block;
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  @mixin font-size($font-size, $line-height: normal, $letter-spacing: normal) {
+    font-size: $font-size * 1px;
+    // font-size: $font-size * 0.1rem;
+    // example using rem values and 62.5% font-size so 1rem = 10px
+  
+    @if $line-height==normal {
+      line-height: normal;
+    } @else {
+      line-height: $line-height / $font-size;
+    }
+  
+    @if $letter-spacing==normal {
+      letter-spacing: normal;
+    } @else {
+      letter-spacing: #{$letter-spacing / $font-size}em;
+    }
+  }
+  /* Usage
+  p {
+    @include font-size(12, 18, 1.2);
+    // returns
+    font-size: 12px;
+    line-height: 1.5; // 18 / 12
+    letter-spacing: 0.1em;
+  }
+  */
+  
+  @mixin fade($type) {
+  
+    @if $type == 'hide' {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 1s, opacity 1s;
+    }
+  
+    @else if $type == 'show' {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 1s, opacity 1s;
+    }
+  
+  }
+  /* Usage
+  .foo .bar {
+    @include fade(hide);
+  }
+  .foo:hover .bar {
+    @include fade(show);
+  }
+  
+  https://bitsofco.de/3-useful-reusable-sass-mixins/
+  
+  */
+  @mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
+
+//   @mixin position usage
+//  .box {
+//   @include position(absolute, $top: 10px, $left: 50%);
+// }
+
+@mixin rounded($radius: 4px) {
+  border-radius: 4px;
+}
+
+
+@mixin clearfix {
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+@mixin table {
+
+}
