@@ -1,15 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import axios from "axios";
-function Map() {
+
+
+function Map(props) {
+    const { data } = props;
     const mapElement = useRef(null);
 
+    console.log(data)
     axios({
         //request
         method: "get",
         url: "http://127.0.0.1:8000/hello/ddd",
         responseType: "type"
     }).then(function (response) {
-        console.log(response)
+        console.log("sss"+response)
     });
 
     useEffect(() => {
