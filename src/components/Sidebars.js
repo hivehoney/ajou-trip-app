@@ -49,6 +49,12 @@ function Sidebars() {
             }
         })
             .then(response => {
+                console.log("======== 전달 ========");
+                console.log("도시: ",selectedValues.region);
+                console.log("시작일: ",startDate);
+                console.log("종료일: ",endDate);
+                console.log("일정: ",range);
+                console.log("======== 전달 ========");
                 console.log(response.data);
                 const data = [
                     {
@@ -89,10 +95,10 @@ function Sidebars() {
         <>
             <div className="left-sidebar">
                 <div className="sidebar-content">
+                   {/* <ol className="breadcrumb" style={{margin: 10+'px'}}>
                     <ol className="breadcrumb" style={{margin: 10+'px'}}>
-                    {/*<ol className="breadcrumb" style={{margin: 10+'px'}}>*/}
                         <li className="breadcrumb-item active"><font size={4}>여행 계획</font></li>
-                    </ol>
+                    </ol>*/}
                     <div className="card border-primary mb-3" style={{maxWidth: 40+'rem', margin: 10+'px',
                         /*backgroundColor: "#transparent"*/}}>
                         <ol className="breadcrumb" style={{margin: 10+'px'}}>
@@ -101,31 +107,33 @@ function Sidebars() {
                         <div className="card-body">
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridEmail">
-                                    <DropdownButton id="dropdown-basic-button" title={selectedValues.region} onSelect={(value) => handleSelect('region', value)} style={{width: 240+'px'}}>
+                                    <DropdownButton id="dropdown-basic-button" title={selectedValues.region} onSelect={(value) => handleSelect('region', value)} style={{float: "left", width: 200+'px'}}>
                                         <Dropdown.Item href="#/action-1" eventKey="서울특별시">서울특별시</Dropdown.Item>
                                         <Dropdown.Item href="#/action-2" eventKey="경기도">경기도</Dropdown.Item>
                                         <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
                                     </DropdownButton>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridPassword">
-                                    <DropdownButton id="dropdown-basic-button" title={selectedValues.duration} onSelect={(value) => handleSelect('duration', value)}>
+                                    <DropdownButton id="dropdown-basic-button" title={selectedValues.duration} onSelect={(value) => handleSelect('duration', value)} style={{float: "right"}}>
                                         <Dropdown.Item id={1} eventKey="당일">당일</Dropdown.Item>
-                                        <Dropdown.Item id={2} eventKey="2일">2일</Dropdown.Item>
-                                        <Dropdown.Item id={3} eventKey="3일">3일</Dropdown.Item>
-                                        <Dropdown.Item id={4} eventKey="4일">4일</Dropdown.Item>
-                                        <Dropdown.Item id={5} eventKey="5일">5일</Dropdown.Item>
+                                        <Dropdown.Item id={2} eventKey="1박 2일">1박 2일</Dropdown.Item>
+                                        <Dropdown.Item id={3} eventKey="2박 3일">2박 3일</Dropdown.Item>
+                                        <Dropdown.Item id={4} eventKey="3박 4일">3박 4일</Dropdown.Item>
+                                        <Dropdown.Item id={5} eventKey="4박 5일">4박 5일</Dropdown.Item>
                                     </DropdownButton>
                                 </Form.Group>
                             </Row>
+
                             <Form.Group as={Row} className="mb-3">
-                                <p><strong>여행 일정</strong></p><Datepicker handleStartDateChange={handleStartDateChange} />
-                            </Form.Group>
-                            <Form.Group as={Row} className="mb-3">
-                                <Col sm={{ span: 20, offset: 9 }}>
-                                    <Button type="submit" onClick={() => getData(selectedStartDate)}>Search</Button>
-                                </Col>
+                                <div className="d-flex justify-content-between">
+                                    <div style={{ display: "flex", alignItems: "center"}}>
+                                        <strong>여행 일정</strong>
+                                    </div>
+                                    <div style={{ alignItems: "center"}}>
+                                        <Datepicker handleStartDateChange={handleStartDateChange} />
+                                    </div>
+                                </div>
                             </Form.Group>
                         </div>
+                            <Button type="submit" onClick={() => getData(selectedStartDate)}>Search</Button>
                     </div>
                 </div>
                 {data && <TableList data={data} />}
