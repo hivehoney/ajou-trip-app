@@ -5,16 +5,6 @@ import Layout from "../components/Layout";
 import axios from "axios";
 
 function Home() {
-    
-    axios({
-        //request
-        method: "get",
-        url: "http://127.0.0.1:8000/place/sigs",
-        responseType: "type"
-    }).then(function (response) {
-        console.log(response)
-        // response Action
-    });
 
     return (
         <>

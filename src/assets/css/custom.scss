@@ -1,0 +1,9 @@
+.datepicker {
+  width: 140px;
+  height: 40px;
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center; /* DatePicker들을 수직 가운데로 정렬 */
+}

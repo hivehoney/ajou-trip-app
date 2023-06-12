@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.left-sidebar-container {
+  flex: 0 0 auto;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.left-sidebar {
+  flex: 0 0 370px;
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+}

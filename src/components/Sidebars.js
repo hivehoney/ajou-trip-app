@@ -8,16 +8,18 @@ import Col from 'react-bootstrap/Col';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import axios from "axios";
 import Datepicker from "./Datepicker";
-import Map from "../pages/Map";
-
+import '../assets/css/bootstrap.min.css';
+import TableList from "./TableList";
+import {addDays, format} from "date-fns";
 
 function Sidebars() {
     const [selectedValues, setSelectedValues] = useState({
-        region: '== 지역 ==',
-        duration: '== 기간 ==',
+        region: '지역',
+        duration: '기간',
     });
 
     const [data, setData] = useState(null);
+    const [selectedStartDate, setSelectedStartDate] = useState(null);
 
     const handleSelect = (key, value) => {
         setSelectedValues((prevValues) => ({
@@ -26,67 +28,108 @@ function Sidebars() {
         }));
     };
 
-    const getData = () => {
-        axios
-            .get('http://127.0.0.1:8000/hello/ddd')
+    const handleStartDateChange = (date) => {
+        setSelectedStartDate(date);
+    };
+
+    const getData = (start) => {
+        console.log("side")
+
+        let startDate = new Date(start);
+        startDate = format(startDate, 'yyyy-MM-dd'); // Datepicker에서 선택한 시작 날짜
+        const endDate = format(addDays(start, 30), 'yyyy-MM-dd');
+        const range = selectedValues.duration;
+
+        axios.get('http://localhost:8000/hello', {
+            params: {
+                id: selectedValues.region,
+                start_date: startDate,
+                end_date: endDate,
+                range: range
+            }
+        })
             .then(response => {
-                const data = response.data;
+                console.log(response.data);
+                const data = [
+                    {
+                        title: 'Day 1',
+                        duration: [
+                            { festivalName: '단양축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
+                            { festivalName: '부산축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
+                            { festivalName: '아주대축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
+                        ]
+                    },
+                    {
+                        title: 'Day 2',
+                        duration: [
+                            { festivalName: '단양축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
+                            { festivalName: '부산축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
+                            { festivalName: '아주대축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
+                        ]
+                    }
+                ];
+
                 setData(data);
-                console.log(data);
+                // 응답 처리
             })
             .catch(error => {
-                console.error('Error:', error);
+                // 에러 처리
             });
+
     };
+
+    useEffect(() => {
+        if (data) {
+            // 데이터가 있는 경우 Home 컴포넌트를 출력합니다.
+            console.log("TableList 출력", data);
+        }
+    }, [data]);
 
     return (
         <>
-            <h2>여행지 검색</h2>
-            <Form.Group as={Row} className="mb-3">
-                <Col sm={{ span: 10, offset: 4 }}>
-                    <span>여행 시작일 </span><Datepicker />
-                </Col>
-            </Form.Group>
-            <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridEmail">
-                    <DropdownButton id="dropdown-basic-button" title={selectedValues.region} onSelect={(value) => handleSelect('region', value)}>
-                        <Dropdown.Item href="#/action-1" eventKey="서울특별시">서울특별시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" eventKey="경기도">경기도</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시" >부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
-                    </DropdownButton>
-                </Form.Group>
-                <Form.Group as={Col} controlId="formGridPassword">
-                    <DropdownButton id="dropdown-basic-button" title={selectedValues.duration} onSelect={(value) => handleSelect('duration', value)}>
-                        <Dropdown.Item href="#/action-1" eventKey="당일">당일</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" eventKey="2일">2일</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="3일">3일</Dropdown.Item>
-                        <Dropdown.Item href="#/action-4" eventKey="4일">4일</Dropdown.Item>
-                        <Dropdown.Item href="#/action-5" eventKey="5일">5일</Dropdown.Item>
-                        <Dropdown.Item href="#/action-6" eventKey="6일">6일</Dropdown.Item>
-                        <Dropdown.Item href="#/action-7" eventKey="7일">7일</Dropdown.Item>
-                    </DropdownButton>
-                </Form.Group>
-            </Row>
-            <Form.Group as={Row} className="mb-3">
-                <Col sm={{ span: 10, offset: 4 }}>
-                    <Button type="submit" onClick={getData}>Search</Button>
-                </Col>
-            </Form.Group>
-            {data && <Map data={data} />}
+            <div className="left-sidebar">
+                <div className="sidebar-content">
+                    <ol className="breadcrumb" style={{margin: 10+'px'}}>
+                    {/*<ol className="breadcrumb" style={{margin: 10+'px'}}>*/}
+                        <li className="breadcrumb-item active"><font size={4}>여행 계획</font></li>
+                    </ol>
+                    <div className="card border-primary mb-3" style={{maxWidth: 40+'rem', margin: 10+'px',
+                        /*backgroundColor: "#transparent"*/}}>
+                        <ol className="breadcrumb" style={{margin: 10+'px'}}>
+                            <li className="breadcrumb-item active"><font size={4}>여행 계획</font></li>
+                        </ol>
+                        <div className="card-body">
+                            <Row className="mb-3">
+                                <Form.Group as={Col} controlId="formGridEmail">
+                                    <DropdownButton id="dropdown-basic-button" title={selectedValues.region} onSelect={(value) => handleSelect('region', value)} style={{width: 240+'px'}}>
+                                        <Dropdown.Item href="#/action-1" eventKey="서울특별시">서울특별시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-2" eventKey="경기도">경기도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
+                                    </DropdownButton>
+                                </Form.Group>
+                                <Form.Group as={Col} controlId="formGridPassword">
+                                    <DropdownButton id="dropdown-basic-button" title={selectedValues.duration} onSelect={(value) => handleSelect('duration', value)}>
+                                        <Dropdown.Item id={1} eventKey="당일">당일</Dropdown.Item>
+                                        <Dropdown.Item id={2} eventKey="2일">2일</Dropdown.Item>
+                                        <Dropdown.Item id={3} eventKey="3일">3일</Dropdown.Item>
+                                        <Dropdown.Item id={4} eventKey="4일">4일</Dropdown.Item>
+                                        <Dropdown.Item id={5} eventKey="5일">5일</Dropdown.Item>
+                                    </DropdownButton>
+                                </Form.Group>
+                            </Row>
+                            <Form.Group as={Row} className="mb-3">
+                                <p><strong>여행 일정</strong></p><Datepicker handleStartDateChange={handleStartDateChange} />
+                            </Form.Group>
+                            <Form.Group as={Row} className="mb-3">
+                                <Col sm={{ span: 20, offset: 9 }}>
+                                    <Button type="submit" onClick={() => getData(selectedStartDate)}>Search</Button>
+                                </Col>
+                            </Form.Group>
+                        </div>
+                    </div>
+                </div>
+                {data && <TableList data={data} />}
+            </div>
         </>
     );
 };
