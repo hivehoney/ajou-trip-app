@@ -1,19 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import axios from "axios";
+import { useSelector } from 'react-redux';
 
-function Map(props) {
-    const { data } = props;
+function Map() {
+    const data = useSelector((state) => state.data);
     const mapElement = useRef(null);
-
-    console.log("MAP")
-    /*axios({
-        //request
-        method: "get",
-        url: "http://127.0.0.1:8000/hello/sss",
-        responseType: "type"
-    }).then(function (response) {
-        console.log("sss"+response)
-    });*/
 
     useEffect(() => {
         const { naver } = window;
@@ -24,7 +14,7 @@ function Map(props) {
         const mapOptions = {
             center: location,
             zoom: 8,
-            zoomControl: true,
+            zoomControl: false,
             zoomControlOptions: {
                 position: naver.maps.Position.TOP_RIGHT,
             },
@@ -32,44 +22,34 @@ function Map(props) {
 
         const map = new naver.maps.Map(mapElement.current, mapOptions);
 
-        var markers = [
-            { position: new naver.maps.LatLng(37.283002350000004, 127.04537818934068), info: 'Marker 1 Info' },
-            { position: new naver.maps.LatLng(37.5675, 126.9790), info: 'Marker 2 Info' },
-            { position: new naver.maps.LatLng(37.5685, 126.9800), info: 'Marker 3 Info' },
-            // 추가적인 마커 정보들...
-        ];
+        if (data) {
+            // 데이터를 반복하면서 마커 생성 및 표시
+            data.forEach((item) => {
+                const {duration} = item;
+                duration.forEach((event) => {
+                    const {latitude, longitude, festivalName, addr, etc} = event;
+                    const position = new naver.maps.LatLng(latitude, longitude);
+                    const marker = new naver.maps.Marker({
+                        position: position,
+                        map: map
+                    });
 
+                    const infoWindowContent = `<div><h3>${festivalName}</h3><p>${addr}</p></div>`;
+                    const infoWindow = new naver.maps.InfoWindow({
+                        content: infoWindowContent,
+                    });
 
-        // 마커 생성 및 지도에 표시
-        for (var i = 0; i < markers.length; i++) {
-            var marker = new naver.maps.Marker({
-                position: markers[i].position,
-                map: map
+                    naver.maps.Event.addListener(marker, 'click', () => {
+                        map.panTo(marker.getPosition());
+                        map.setZoom(15);
+                        infoWindow.open(map, marker);
+                    });
+                });
             });
-
-            // 팝업 생성 및 마커 클릭 시 팝업 표시
-            var infoWindow = new naver.maps.InfoWindow({
-                content: markers[i].info,
-            });
-
-            // 마커 클릭 이벤트 핸들러
-            naver.maps.Event.addListener(marker, 'click', (function (infoWindow, marker) {
-                return function () {
-                    // 마커 위치로 이동하면서 확대
-                    map.panTo(marker.getPosition());
-                    map.setZoom(15);
-
-                    // 팝업 표시
-                    infoWindow.open(map, marker);
-                };
-            })(infoWindow, marker));
         }
-    }, []);
+    }, [data]);
 
-
-    return (
-            <div ref={mapElement} style={{ minHeight: '1200px' }} />
-        );
+    return ( <div ref={mapElement} style={{ minHeight: '1200px' }} /> );
 }
 
 export default Map;

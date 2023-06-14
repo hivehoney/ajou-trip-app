@@ -11,15 +11,32 @@ import Datepicker from "./Datepicker";
 import '../assets/css/bootstrap.min.css';
 import TableList from "./TableList";
 import {addDays, format} from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from '../reducers/store';
+
+
+// 알림 컴포넌트
+const AlertMessage = ({ message, onClose }) => {
+    return (
+        <div className="alert alert-dismissible alert-warning">
+            <button type="button" className="btn-close" onClick={onClose}></button>
+            <strong>Warning!</strong> {message}
+        </div>
+    );
+};
 
 function Sidebars() {
+    const dispatch = useDispatch();
+    const tableData = useSelector((state) => state.data);
+
     const [selectedValues, setSelectedValues] = useState({
         region: '지역',
         duration: '기간',
     });
 
-    const [data, setData] = useState(null);
     const [selectedStartDate, setSelectedStartDate] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const handleSelect = (key, value) => {
         setSelectedValues((prevValues) => ({
@@ -35,12 +52,23 @@ function Sidebars() {
     const getData = (start) => {
         console.log("side")
 
-        let startDate = new Date(start);
-        startDate = format(startDate, 'yyyy-MM-dd'); // Datepicker에서 선택한 시작 날짜
-        const endDate = format(addDays(start, 30), 'yyyy-MM-dd');
-        const range = selectedValues.duration;
+        if (!start || !selectedValues.region || !selectedValues.duration) {
+            setShowAlert(true); // 데이터가 비어있을 때 알림 표시
+            setAlertMessage('Please fill in all the fields.');
+            return;
+        }
+        setShowAlert(false);
 
-        axios.get('http://localhost:8000/hello', {
+        let startDate = new Date(start);
+        if (startDate instanceof Date && !isNaN(startDate)) {
+            startDate = format(startDate, 'yyyy-MM-dd');
+        }
+
+        const endDate = format(addDays(start, 30), 'yyyy-MM-dd');
+        const range = selectedValues.duration.charAt(0);
+
+        axios
+        .get('http://127.0.0.1:8000/recomand/trip', {
             params: {
                 id: selectedValues.region,
                 start_date: startDate,
@@ -49,33 +77,7 @@ function Sidebars() {
             }
         })
             .then(response => {
-                console.log("======== 전달 ========");
-                console.log("도시: ",selectedValues.region);
-                console.log("시작일: ",startDate);
-                console.log("종료일: ",endDate);
-                console.log("일정: ",range);
-                console.log("======== 전달 ========");
-                console.log(response.data);
-                const data = [
-                    {
-                        title: 'Day 1',
-                        duration: [
-                            { festivalName: '단양축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
-                            { festivalName: '부산축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
-                            { festivalName: '아주대축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
-                        ]
-                    },
-                    {
-                        title: 'Day 2',
-                        duration: [
-                            { festivalName: '단양축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
-                            { festivalName: '부산축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
-                            { festivalName: '아주대축제', location: '경기도 수원시 영통구 월드컵로 206', latitude: 'latitudeValue', longitude: 'longitudeValue', address: '경기도 수원시 영통구 월드컵로 206', etc: '설명입니다.' },
-                        ]
-                    }
-                ];
-
-                setData(data);
+                dispatch(setData(response.data));
                 // 응답 처리
             })
             .catch(error => {
@@ -85,11 +87,11 @@ function Sidebars() {
     };
 
     useEffect(() => {
-        if (data) {
+        if (tableData) {
             // 데이터가 있는 경우 Home 컴포넌트를 출력합니다.
-            console.log("TableList 출력", data);
+            console.log("TableList 출력", tableData);
         }
-    }, [data]);
+    }, [tableData]);
 
     return (
         <>
@@ -136,7 +138,7 @@ function Sidebars() {
                             <Button type="submit" onClick={() => getData(selectedStartDate)}>Search</Button>
                     </div>
                 </div>
-                {data && <TableList data={data} />}
+                {tableData && <TableList data={tableData} />}
             </div>
         </>
     );

@@ -32,7 +32,7 @@ function Datepicker({ handleStartDateChange  }) {
                 className="datepicker"
                 dateFormat="yyyy년 MM월 dd일"
                 selected={selectedStartDate}
-                onChange={handleStartDateChange}
+                onChange={handleChange}
                 selectsStart
                 startDate={selectedStartDate}
                 endDate={selectedEndDate}
