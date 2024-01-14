@@ -35,7 +35,7 @@ function TableList({ data }) {
                         <div className="card mb-3">
                             <h3 className="card-header">
                                 <p className="text-danger" style={{ float: 'left' }}>
-                                    {Number(index + 1)} Day
+                                    {`${item.title.slice(0, 4)}년 ${item.title.slice(4, 6)}월 ${item.title.slice(6, 8)}일`}
                                 </p>
                                 <button
                                     type="button"

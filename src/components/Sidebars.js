@@ -64,7 +64,7 @@ function Sidebars() {
             startDate = format(startDate, 'yyyy-MM-dd');
         }
 
-        const endDate = format(addDays(start, 30), 'yyyy-MM-dd');
+        const endDate = format(addDays(start, 15), 'yyyy-MM-dd');
         const range = selectedValues.duration.charAt(0);
 
         axios
@@ -111,8 +111,20 @@ function Sidebars() {
                                 <Form.Group as={Col} controlId="formGridEmail">
                                     <DropdownButton id="dropdown-basic-button" title={selectedValues.region} onSelect={(value) => handleSelect('region', value)} style={{float: "left", width: 200+'px'}}>
                                         <Dropdown.Item href="#/action-1" eventKey="서울특별시">서울특별시</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2" eventKey="경기도">경기도</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3" eventKey="부산광역시">부산광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-2" eventKey="부산광역시">부산광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3" eventKey="대구광역시">대구광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-4" eventKey="인천광역시">인천광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-5" eventKey="광주광역시">광주광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-6" eventKey="대전광역시">대전광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-7" eventKey="울산광역시">울산광역시</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-8" eventKey="강원도">강원도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-9" eventKey="충청북도">충청북도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-10" eventKey="충청남도">충청남도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-11" eventKey="전라북도">전라북도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-12" eventKey="전라남도">전라남도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-13" eventKey="경상북도">경상북도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-14" eventKey="경상남도">경상남도</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-15" eventKey="제주특별자치도">제주특별자치도</Dropdown.Item>
                                     </DropdownButton>
                                     <DropdownButton id="dropdown-basic-button" title={selectedValues.duration} onSelect={(value) => handleSelect('duration', value)} style={{float: "right"}}>
                                         <Dropdown.Item id={1} eventKey="당일">당일</Dropdown.Item>
